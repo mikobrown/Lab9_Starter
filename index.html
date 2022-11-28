@@ -47,6 +47,15 @@
       width: 122px;
     }
   </style>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "a38b6db80ea64ea3a65fe564ac8cc65d"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+    TrackJS.track('Testing TrackJS!');
+  </script>
+  
 </head>
 
 <body>
@@ -102,6 +111,117 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let logButton = errorBtns[0];
+    logButton.addEventListener('click', () => {
+      console.log('log');
+    });
+
+    let errButton = errorBtns[1];
+    errButton.addEventListener('click', () => {
+      console.error('error');
+    });
+
+    let countButton = errorBtns[2];
+    countButton.addEventListener('click', () => {
+      console.count();
+    });
+
+    let warnButton = errorBtns[3];
+    warnButton.addEventListener('click', () => {
+      console.warn('warn');
+    });
+
+    let assertButton = errorBtns[4];
+    assertButton.addEventListener('click', () => {
+      const x = 5;
+      const y = 3;
+      const reason = 'x is expected to be less than y';
+      console.assert(x < y, {x, y, reason});
+    });
+
+    let clearButton = errorBtns[5];
+    clearButton.addEventListener('click', () => {
+      console.clear();
+    });
+
+    let dirButton = errorBtns[6];
+    dirButton.addEventListener('click', () => {
+      console.dir(document.head);
+    });
+
+    let dirxmlButton = errorBtns[7];
+    dirxmlButton.addEventListener('click', () => {
+      console.dirxml(document);
+    });
+
+    let groupButton = errorBtns[8];
+    groupButton.addEventListener('click', () => {
+      console.group('groupLabel');
+      console.log('hi');
+      console.log('hii');
+    });
+
+    let groupEndButton = errorBtns[9];
+    groupEndButton.addEventListener('click', () => {
+      console.groupEnd('groupLabel');
+    });
+
+    let tableButton = errorBtns[10];
+    tableButton.addEventListener('click', () => {
+      console.table([
+        {
+          first:'john',
+          last: 'doe'
+        },
+        {
+          first:'jane',
+          last:'doe'
+        }
+      ]);
+    });
+
+    let startTimerButton = errorBtns[11];
+    startTimerButton.addEventListener('click', () => {
+      console.time();
+    });
+
+    let endTimerButton = errorBtns[12];
+    endTimerButton.addEventListener('click', () => {
+      console.timeEnd();
+    });
+
+    let traceButton = errorBtns[13];
+    traceButton.addEventListener('click', () => {
+      console.trace();
+    });
+
+    class buttonGlobalError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "buttonGlobalError";
+      }
+    }
+
+    let globalErrorButton = errorBtns[14];
+    globalErrorButton.addEventListener('click', () => {
+      throw(new buttonGlobalError('global error triggered'));
+    });
+
+    //comment out operator select element line 58-63 to trigger error
+    try {
+      let select = document.querySelector('#operator');
+      select.click();
+    }
+    catch (err){
+      console.log(err.message);
+    }
+    finally {
+      console.log('finally');
+    }
+
+    window.addEventListener('error', (message) => {
+      console.log(message);
+    })
   </script>
 </body>
 
